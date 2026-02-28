@@ -21,14 +21,12 @@ function buildUrl(params: Record<string, string>) {
 }
 
 export default function EditPage() {
-  const [name, setName] = React.useState("John Doe")
-  const [email, setEmail] = React.useState("john@doe.com")
-  const [phone, setPhone] = React.useState("+1234567890")
+  const [name, setName] = React.useState("")
+  const [email, setEmail] = React.useState("")
+  const [phone, setPhone] = React.useState("")
   const [whatsapp, setWhatsapp] = React.useState("")
-  const [country, setCountry] = React.useState("Doeland")
-  const [message, setMessage] = React.useState(
-    "Thanks for finding my luggage! Please contact me below so we can arrange its return."
-  )
+  const [country, setCountry] = React.useState("")
+  const [message, setMessage] = React.useState("")
 
   const generated = React.useMemo(
     () =>
@@ -71,32 +69,56 @@ export default function EditPage() {
           <CardContent className="space-y-4">
             <div className="grid gap-2">
               <Label>Name</Label>
-              <Input value={name} onChange={(e) => setName(e.target.value)} />
+              <Input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="e.g., John Doe"
+              />
             </div>
 
             <div className="grid gap-2">
               <Label>Email</Label>
-              <Input value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="e.g., john@doe.com"
+              />
             </div>
 
             <div className="grid gap-2">
               <Label>Phone</Label>
-              <Input value={phone} onChange={(e) => setPhone(e.target.value)} />
+              <Input
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="e.g., +1234567890"
+              />
             </div>
 
             <div className="grid gap-2">
               <Label>WhatsApp (optional)</Label>
-              <Input value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} />
+              <Input
+                value={whatsapp}
+                onChange={(e) => setWhatsapp(e.target.value)}
+                placeholder="e.g., +1234567890"
+              />
             </div>
 
             <div className="grid gap-2">
               <Label>Country (code)</Label>
-              <Input value={country} onChange={(e) => setCountry(e.target.value)} />
+              <Input
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                placeholder="e.g., US"
+              />
             </div>
 
             <div className="grid gap-2">
               <Label>Message</Label>
-              <Textarea value={message} onChange={(e) => setMessage(e.target.value)} />
+              <Textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="e.g., Hello, this is a sample message."
+              />
             </div>
 
             <Separator />

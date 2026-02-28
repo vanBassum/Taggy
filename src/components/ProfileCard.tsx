@@ -3,6 +3,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Mail, Phone, MessageCircle, MapPin, ChevronRight } from "lucide-react"
 
+// Default messages
+const DEFAULT_PROFILE_MESSAGE = "Thanks for finding this item! Please contact me below so we can arrange its return."
+const DEFAULT_WHATSAPP_MESSAGE = "Hi, I found your luggage."
+
 export type ProfileCardProps = {
   name: string
   email?: string
@@ -93,19 +97,20 @@ export function ProfileCard({
   whatsapp,
   country,
   className,
-  message = "🙏 Thanks for finding this item! Please contact me below so we can arrange its return.",
+  message,
 }: ProfileCardProps) {
   const emailVal = email?.trim()
   const phoneVal = phone?.trim()
   const waVal = whatsapp?.trim()
   const countryVal = country?.trim()
+  const messageVal = message?.trim() || DEFAULT_PROFILE_MESSAGE // Use default if empty
 
   return (
     <Card className={["w-full max-w-sm", className].filter(Boolean).join(" ")}>
       <CardContent className="p-4">
         <div className="flex flex-col items-center text-center">
           <h3 className="mt-2 text-xl font-semibold">{name}</h3>
-          <p className="mt-2 max-w-xs text-sm text-muted-foreground">{message}</p>
+          <p className="mt-2 max-w-xs text-sm text-muted-foreground">{messageVal}</p>
         </div>
 
         <div className="mt-6 space-y-2">
@@ -133,7 +138,7 @@ export function ProfileCard({
               label="WhatsApp"
               value="Message me"
               href={`https://wa.me/${normalizePhoneForWa(waVal)}?text=${encodeURIComponent(
-                "Hi, I found your luggage."
+                DEFAULT_WHATSAPP_MESSAGE // Use default WhatsApp message
               )}`}
               external
             />
