@@ -1,5 +1,7 @@
+import * as React from "react"
 import { Card, CardContent } from "@/components/ui/card"
-import { Mail, Phone, MessageCircle, MapPin } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Mail, Phone, MessageCircle, MapPin, ChevronRight } from "lucide-react"
 
 export type ProfileCardProps = {
   name: string
@@ -22,41 +24,65 @@ function normalizePhoneForWa(input: string) {
   return input.replace(/[^\d]/g, "")
 }
 
-function Row({
+function ActionRow({
   icon,
-  text,
+  label,
+  value,
   href,
   external,
 }: {
   icon: React.ReactNode
-  text: string
-  href?: string
+  label: string
+  value: string
+  href: string
   external?: boolean
 }) {
-  const content = (
-    <>
-      <div className="grid h-9 w-9 place-items-center rounded-md border bg-background text-muted-foreground">
-        {icon}
-      </div>
-      <span className="min-w-0 truncate text-sm text-muted-foreground">
-        {text}
-      </span>
-    </>
-  )
-
-  if (!href) {
-    return <div className="flex items-center gap-3 p-2">{content}</div>
-  }
-
   return (
-    <a
-      href={href}
-      className="flex items-center gap-3 rounded-md p-2 transition-colors hover:bg-muted/60"
-      target={external ? "_blank" : undefined}
-      rel={external ? "noreferrer" : undefined}
+    <Button
+      variant="outline"
+      className="h-auto w-full justify-start gap-3 px-3 py-3"
+      asChild
     >
-      {content}
-    </a>
+      <a
+        href={href}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noreferrer" : undefined}
+      >
+        <span className="grid h-9 w-9 place-items-center rounded-md border bg-background text-muted-foreground">
+          {icon}
+        </span>
+
+        <span className="min-w-0 flex-1 text-left">
+          <span className="block text-xs text-muted-foreground">{label}</span>
+          <span className="block truncate text-sm font-medium">{value}</span>
+        </span>
+
+        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+      </a>
+    </Button>
+  )
+}
+
+function InfoRow({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactNode
+  label: string
+  value: string
+}) {
+  return (
+    <div className="flex w-full items-center gap-3 rounded-md border bg-muted/30 px-3 py-3">
+      <span className="grid h-9 w-9 place-items-center rounded-md border bg-background text-muted-foreground">
+        {icon}
+      </span>
+
+      <span className="min-w-0 flex-1">
+        <span className="block text-xs text-muted-foreground">{label}</span>
+        <span className="block truncate text-sm font-medium">{value}</span>
+      </span>
+    </div>
   )
 }
 
@@ -67,7 +93,7 @@ export function ProfileCard({
   whatsapp,
   country,
   className,
-  message,
+  message = "🙏 Thanks for finding this item! Please contact me below so we can arrange its return.",
 }: ProfileCardProps) {
   const emailVal = email?.trim()
   const phoneVal = phone?.trim()
@@ -79,43 +105,46 @@ export function ProfileCard({
       <CardContent className="p-4">
         <div className="flex flex-col items-center text-center">
           <h3 className="mt-2 text-xl font-semibold">{name}</h3>
-          <p className="mt-3 max-w-xs text-sm text-muted-foreground">
-            {message}
-          </p>
+          <p className="mt-2 max-w-xs text-sm text-muted-foreground">{message}</p>
         </div>
 
-        <div className="mt-6 space-y-1">
-          {/* Email */}
+        <div className="mt-6 space-y-2">
           {emailVal ? (
-            <Row
+            <ActionRow
               icon={<Mail className="h-4 w-4" />}
-              text={emailVal}
+              label="Email"
+              value={emailVal}
               href={`mailto:${emailVal}`}
             />
           ) : null}
 
-          {/* Phone */}
           {phoneVal ? (
-            <Row
+            <ActionRow
               icon={<Phone className="h-4 w-4" />}
-              text={phoneVal}
+              label="Phone"
+              value={phoneVal}
               href={`tel:${normalizePhoneForTel(phoneVal)}`}
             />
           ) : null}
 
-          {/* WhatsApp */}
           {waVal ? (
-            <Row
+            <ActionRow
               icon={<MessageCircle className="h-4 w-4" />}
-              text="WhatsApp"
-              href={`https://wa.me/${normalizePhoneForWa(waVal)}?text=Hi,%20I%20found%20your%20luggage`}
+              label="WhatsApp"
+              value="Message me"
+              href={`https://wa.me/${normalizePhoneForWa(waVal)}?text=${encodeURIComponent(
+                "Hi, I found your item."
+              )}`}
               external
             />
           ) : null}
 
-          {/* Country (not clickable) */}
           {countryVal ? (
-            <Row icon={<MapPin className="h-4 w-4" />} text={countryVal} />
+            <InfoRow
+              icon={<MapPin className="h-4 w-4" />}
+              label="Country"
+              value={countryVal}
+            />
           ) : null}
         </div>
       </CardContent>
