@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Copy, ExternalLink } from "lucide-react"
 import { ProfileCard } from "@/components/ProfileCard"
+import { BASE_PATH } from "@/config"; // Import BASE_PATH
 
 function buildUrl(params: Record<string, string>) {
   const qs = new URLSearchParams()
@@ -15,7 +16,7 @@ function buildUrl(params: Record<string, string>) {
     if (val) qs.set(k, val)
   }
 
-  const base = `${window.location.origin}`
+  const base = `${window.location.origin}${BASE_PATH}`; // Use BASE_PATH
   const q = qs.toString()
   return q ? `${base}?${q}` : base
 }
@@ -99,7 +100,7 @@ export default function EditPage() {
               <Input
                 value={whatsapp}
                 onChange={(e) => setWhatsapp(e.target.value)}
-                placeholder="e.g., +1234567890"
+                placeholder="Leave empty to use Phone number"
               />
             </div>
 

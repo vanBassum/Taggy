@@ -2,6 +2,7 @@ import * as React from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Mail, Phone, MessageCircle, MapPin, ChevronRight } from "lucide-react"
+import { BASE_PATH } from "@/config"
 
 // Default messages
 const DEFAULT_PROFILE_MESSAGE = "Thanks for finding this item! Please contact me below so we can arrange its return."
@@ -139,7 +140,7 @@ export function ProfileCard({
               value="Message me"
               href={`https://wa.me/${normalizePhoneForWa(waVal)}?text=${encodeURIComponent(
                 DEFAULT_WHATSAPP_MESSAGE // Use default WhatsApp message
-              )}`}
+              )}`} 
               external
             />
           ) : null}
