@@ -4,8 +4,11 @@ import { Button } from "@/components/ui/button"
 import { Mail, Phone, MessageCircle, MapPin, ChevronRight } from "lucide-react"
 
 // Default messages
-const DEFAULT_PROFILE_MESSAGE = "Thanks for finding this item! Please contact me below so we can arrange its return."
-const DEFAULT_WHATSAPP_MESSAGE = "Hi, I found your luggage."
+const DEFAULT_PROFILE_MESSAGE = 
+"Hey! 👋 Thanks for finding me. Can you help me get back to my human? 😊"
+
+const DEFAULT_WHATSAPP_MESSAGE = 
+"Hi! I found your Taggy 🙂"
 
 export type ProfileCardProps = {
   name: string
