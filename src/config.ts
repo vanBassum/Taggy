@@ -1,1 +1,1 @@
-export const BASE_PATH = "/dogtag"; // Ensure this matches your app's base path
+export const BASE_PATH = "/"; // Ensure this matches your app's base path

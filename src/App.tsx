@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom"
 import { ProfileCard } from "./components/ProfileCard"
 
 
@@ -17,6 +18,7 @@ const expandCountry = (code: string) => {
 
 
 export function App() {
+  const { tag } = useParams()
   const urlParams = new URLSearchParams(window.location.search)
 
   // Helper: short key → long key → default
@@ -25,7 +27,7 @@ export function App() {
     urlParams.get(longKey) ??
     def
 
-  const name = getParam("n", "name", "Anonymous")
+  const name = getParam("n", "name", tag ?? "Anonymous")
   const email = getParam("e", "email", "")
   const phone = getParam("p", "phone", "")
   const whatsapp = getParam("w", "whatsapp", "") || phone
